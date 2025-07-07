@@ -1,0 +1,8 @@
+{
+  "name": "RdG multicircle card",
+  "filename": "rdg-multicircle-card.js",
+  "type": "module",
+  "render_readme": true,
+  "description": "Configurable 3x2 grid card with 3 to 6 circle graphs for any value sensor. Specially designed for energy dashboards.",
+  "authors": ["@rjdgroot"]
+}
