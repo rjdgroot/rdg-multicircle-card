@@ -1,7 +1,7 @@
-# RdG Circle Card
+# RdG MultiCircle Card
 
-A configurable, animated and responsive circle graph for Home Assistant dashboards.  
-Ideal for showing energy, temperature, or any other numeric sensor — with support for both positive and negative values.
+A configurable, responsive **3×2 grid card** showing up to **six animated circle graphs**.  
+Perfect for comparing energy consumption, production, temperatures or any numeric sensors — all in a clean dashboard layout.
 
 ![Preview](preview.gif)
 
@@ -9,16 +9,13 @@ Ideal for showing energy, temperature, or any other numeric sensor — with supp
 
 ## 🔧 Features
 
-- 🔄 Animated SVG circle with smooth transitions
-- ➕ Supports both positive and negative values (dual-direction mode)
-- 🎨 Dynamic stroke color (based on value, split point, or color stops)
-- 🌈 Custom gradients, background color, and stroke styles
-- 🧾 Display entity value, units, icon, and optional max
-- 📱 Fully responsive (auto-scaling based on container)
-- 🚨 Optional alert blinking when value exceeds a threshold
-- ⚡ Tap actions: `more-info`, `navigate`, `call-service`, `url`, or `none`
-- 🧩 Easy to use as a standalone card or embedded in custom layouts
-- 🛠️ Full theme variable and font styling support
+- ➕ Supports 3 to 6 sensors in a 3-column by 2-row layout
+- 🌀 Each circle uses the [RdG Circle Card](https://github.com/rjdgroot/rdg-circle-card)
+- 🎨 Individual per-sensor styling (colors, stroke, alert values)
+- 🧾 Optional labels below each circle
+- 🧩 Fully embeddable, no outer `ha-card` frame
+- 📱 Fully responsive layout using `clamp(...)` sizing
+- ⚡ Tap actions per sensor: `more-info`, `navigate`, `call-service`, `toggle`, or `none`
 
 ---
 
@@ -28,48 +25,64 @@ Ideal for showing energy, temperature, or any other numeric sensor — with supp
 
 1. Add this repository as a **custom repository** in HACS:
 2. Go to HACS → Frontend → Explore & Download Repositories
-3. Search for **"RdG Circle Card"**, install and reload
+3. Search for **"RdG MultiCircle Card"**, install and reload
 
 ### Option 2: Manual
 
-1. Copy `rdg-circle-card.js` to `/config/www/rdg-circle-card/`
-2. Add to your `configuration.yaml` or UI resources:
+1. Copy `rdg-multicircle-card.js` (and `rdg-circle-card.js`) to `/config/www/rdg-multicircle-card/`
+2. Add this to your `configuration.yaml` or UI resources:
 
 ```yaml
 resources:
-- url: /local/rdg-circle-card/rdg-circle-card.js
+- url: /local/rdg-multicircle-card/rdg-multicircle-card.js
  type: module
 ```
-
 ## 🧪 Example Usage
-
 ```
-type: custom:rdg-circle-card
-entity: sensor.energy_today
-icon: mdi:flash
-min: -10
-max: 10
-stroke_color_1: "#4caf50"
-stroke_color_2: "#f44336"
-stroke_bg_color: "#cccccc"
+type: custom:rdg-multicircle-card
+show_labels: true
 stroke_width: 10
 stroke_bg_width: 6
-units: "kWh"
-decimals: 1
-show_max: true
-color_split_value: 0
-use_shadow: true
-alert_value: 9.5
-tap_action:
-  action: more-info
+stroke_bg_color: "#cccccc"
+circle_1:
+  entity: sensor.energy_import
+  name: Import
+  icon: mdi:transmission-tower
+  stroke_color_positive: "#03a9f4"
+  stroke_color_negative: "#4caf50"
+  min: -10
+  max: 10
+  units: "kWh"
+  decimals: 1
+circle_2:
+  ...
+circle_3:
+ ...
+
+# Optional additional circles (4-6)
+circle_4:
+  entity: sensor.temperature_1
+  name: Living Room
+  stroke_color: "#ff5722"
+  min: 0
+  max: 30
+circle_5:
+  ...
+circle_6:
+  ...
 ```
+## ⚙️ Configuration Options
+<table> <thead> <tr> <th>Option</th> <th>Type</th> <th>Description</th> </tr> </thead> <tbody> <tr><td><code>show_labels</code></td><td>boolean</td><td>Show text label under each circle (default: true)</td></tr> <tr><td><code>stroke_width</code></td><td>number</td><td>Default stroke width for all circles (can be overridden per circle)</td></tr> <tr><td><code>stroke_bg_width</code></td><td>number</td><td>Default background stroke width</td></tr> <tr><td><code>stroke_bg_color</code></td><td>string</td><td>Default background stroke color</td></tr> </tbody> </table>
+Each circle_X (from 1 to 6) supports the full configuration from the rdg-circle-card, such as:
 
-## ⚙️ Available Options
-
-<table> <thead> <tr> <th>Option</th> <th>Type</th> <th>Description</th> </tr> </thead> <tbody> <tr><td><code>entity</code></td><td>string</td><td>The sensor to track (<strong>required</strong>)</td></tr> <tr><td><code>icon</code></td><td>string</td><td>(Optional) Material Design icon</td></tr> <tr><td><code>min</code> / <code>max</code></td><td>number / string</td><td>Value range (can also reference other sensors or attributes)</td></tr> <tr><td><code>stroke_color_1</code></td><td>string</td><td>Color when value &lt; <code>color_split_value</code></td></tr> <tr><td><code>stroke_color_2</code></td><td>string</td><td>Color when value ≥ <code>color_split_value</code></td></tr> <tr><td><code>stroke_color</code></td><td>string</td><td>Single color (when not using split logic)</td></tr> <tr><td><code>stroke_width</code></td><td>number</td><td>Width of the foreground circle stroke</td></tr> <tr><td><code>stroke_bg_color</code></td><td>string</td><td>Color of the background stroke</td></tr> <tr><td><code>stroke_bg_width</code></td><td>number</td><td>Width of the background stroke</td></tr> <tr><td><code>stroke_linecap</code></td><td>string</td><td>Stroke edge style (<code>'round'</code>, <code>'butt'</code>, etc.)</td></tr> <tr><td><code>fill</code></td><td>string</td><td>Background fill color of the circle area</td></tr> <tr><td><code>use_shadow</code></td><td>boolean</td><td>Enables inner SVG shadow filter</td></tr> <tr><td><code>units</code></td><td>string</td><td>Override unit label</td></tr> <tr><td><code>attribute</code></td><td>string</td><td>Use value from specific attribute instead of state</td></tr> <tr><td><code>attribute_max</code></td><td>string</td><td>For use with <code>show_max</code></td></tr> <tr><td><code>show_max</code></td><td>boolean</td><td>Show max value next to current</td></tr> <tr><td><code>decimals</code></td><td>number</td><td>Decimal precision</td></tr> <tr><td><code>alert_value</code></td><td>number</td><td>Blinking alert if value exceeds this threshold</td></tr> <tr><td><code>tap_action</code></td><td>object</td><td>Standard Lovelace action object</td></tr> <tr><td><code>show_card</code></td><td>boolean</td><td>If <code>false</code>, renders without <code>ha-card</code> wrapper</td></tr> <tr><td><code>font_style</code></td><td>object</td><td>Define individual font sizes and styling</td></tr> <tr><td><code>style</code></td><td>object</td><td>Set custom CSS vars (like <code>--circle-sensor-width</code>)</td></tr> <tr><td><code>color_split_value</code></td><td>number</td><td>Threshold to switch between <code>stroke_color_1</code> and <code>stroke_color_2</code></td></tr> </tbody> </table>
-
-## 🧱 Embeddable
-Can be used within other custom cards (e.g., button-card, stack-in-card) or inside grid layouts.
+entity
+icon, name
+min, max, units, decimals
+stroke_color, stroke_color_positive, stroke_color_negative
+alert_value
+tap_action
+attribute, attribute_max, show_max
+etc.
 
 ## 📘 License
-MIT License. Created by Rinse de Groot
+Created by Rinse de Groot
