@@ -1,3 +1,6 @@
+> **ℹ️ Note:** This card depends on [`rdg-circle-card`](https://github.com/rjdgroot/rdg-circle-card).
+> Make sure that `rdg-circle-card.js` is also installed and properly loaded in your Home Assistant resources.
+
 # RdG MultiCircle Card
 
 A configurable, responsive **3×2 grid card** showing up to **six animated circle graphs**.  
@@ -37,6 +40,7 @@ resources:
 - url: /local/rdg-multicircle-card/rdg-multicircle-card.js
  type: module
 ```
+
 ## 🧪 Example Usage
 ```
 type: custom:rdg-multicircle-card
