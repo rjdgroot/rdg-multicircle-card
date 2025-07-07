@@ -16,9 +16,6 @@ Perfect for comparing energy consumption, production, temperatures or any numeri
 - 🌀 Each circle uses the [RdG Circle Card](https://github.com/rjdgroot/rdg-circle-card)
 - 🎨 Individual per-sensor styling (colors, stroke, alert values)
 - 🧾 Optional labels below each circle
-- 🧩 Fully embeddable, no outer `ha-card` frame
-- 📱 Fully responsive layout using `clamp(...)` sizing
-- ⚡ Tap actions per sensor: `more-info`, `navigate`, `call-service`, `toggle`, or `none`
 
 ---
 
