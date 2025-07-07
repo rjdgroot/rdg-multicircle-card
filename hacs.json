@@ -1,6 +1,5 @@
 {
   "name": "RdG Multicircle Card",
   "filename": "rdg-multicircle-card.js",
-  "type": "module",
   "render_readme": true
 }
