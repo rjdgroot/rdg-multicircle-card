@@ -1,6 +1,7 @@
 {
-  "name": "RdG MultiCircle Card",
+  "name": "RdG Multicircle Card",
   "filename": "rdg-multicircle-card.js",
+  "type": "module",
   "render_readme": true,
-  "description": "Configurable 3x2 grid card with 3 to 6 animated circular graphs, ideal for energy dashboards in Home Assistant."
+  "authors": ["rjdgroot"]
 }
