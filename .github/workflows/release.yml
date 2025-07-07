@@ -16,4 +16,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            rdg-multicircle-card/*.js
+            rdg-multicircle-card.js
